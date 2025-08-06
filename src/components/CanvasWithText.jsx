@@ -80,6 +80,9 @@ const CanvasWithText = ({ imageUrl, textConfig }) => {
         setIsEditingText(false);
     };
 
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   
 
     return (
@@ -120,7 +123,7 @@ const CanvasWithText = ({ imageUrl, textConfig }) => {
                                 x={textPosition.x}
                                 y={textPosition.y}
                                 width={400}
-                                fontSize={textConfig.fontSize * 0.7}
+                                fontSize={textConfig?.fontSize * (isMobile ? 0.4 : 0.6)} 
                                 lineHeight={textConfig.lineHeight || 1.2}
                                 draggable={isEditing}
                                 onDragEnd={(e) => {

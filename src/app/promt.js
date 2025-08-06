@@ -46,17 +46,24 @@ Apply the following visual logic **only when the topic demands it**:
 📵 The generated image **must not contain any visible text** inside the thumbnail itself.
 
 ✍️ The second line must be a **JavaScript object with the text overlay config**.
-- The **text style must visually match** the generated image theme (font, color, shadow, etc.).
-- The **text must be highly readable and complement the thumbnail** using good contrast, bold fonts, shadows, clear spacing, and clean layout.
+Apply these typography principles:
+
+- The **text style must be bold, high contrast, and easy to read**, even on mobile.
+- Use **bold sans-serif fonts** (like "Anton", "Bebas Neue", "Oswald", or "Poppins") for high clickability.
+- the text color should be clearly readable based on the background on the textconfig 
+- Add **text shadow** for contrast and readability:
+  \`shadowColor: "#000"\`, \`shadowBlur: 10\`, \`shadowOffset: { x: 2, y: 2 }\`, \`shadowOpacity: 0.6\`
+- Use high-contrast text colors (white or bright tones if background is dark, or vice versa).
 - If the video title is in **Bangla**, use  **"Noto Sans Bengali"** in the \`fontFamily\`.
-- Use multiline support and word wrapping only if needed — specifically:
-  - When the text length exceeds 20 characters, or
-  - When the text's x position is 100 or greater
-- This can be enabled by setting \`width\` and \`lineHeight\` properties in the text config.
+- Use **multiline support and word wrapping** only if:
+  - The text length exceeds 20 characters, or
+  - The text's x position is 100 or greater.
+- Set the following properties if wrapping:
+  \`width\`, \`lineHeight\`
 
 - Konva.js supports **line breaks** and **text wrapping** using \`width\`, \`lineHeight\`, and \`\\n\` for manual breaks.
 
-If browsing is not possible, use your own best knowledge to create the most accurate and attention-grabbing thumbnail prompt possible.
+If browsing is not possible, use your best judgment to create the most clickable, scannable, and attention-grabbing thumbnail prompt possible.
 
 ⚠️ Output Format:
 
@@ -70,14 +77,14 @@ A dramatic YouTube thumbnail showing a developer typing furiously with a dark ba
   text: "The\\nDev Life",
   x: 150,
   y: 200,
-  fill: "#00ffcc",
+  fill: "#ffffff",
   fontSize: 42,
   fontStyle: "bold",
   shadowColor: "#000",
   shadowBlur: 12,
   shadowOffset: { x: 2, y: 2 },
-  shadowOpacity: 0.5,
-  fontFamily: "Share Tech Mono",
+  shadowOpacity: 0.6,
+  fontFamily: "Anton",
   letterSpacing: 1,
   lineHeight: 1.4,
   width: 300
