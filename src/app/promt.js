@@ -78,7 +78,7 @@ A dramatic YouTube thumbnail showing a developer typing furiously with a dark ba
   x: 150,
   y: 200,
   fill: "#ffffff",
-  fontSize: 42,
+  fontSize: 42,  // should not be more then 60
   fontStyle: "bold",
   shadowColor: "#000",
   shadowBlur: 12,
