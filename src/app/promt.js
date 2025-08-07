@@ -1,5 +1,5 @@
 export const getGeminiPrompt = (videoTitle) => `
-Browse YouTube and search for the video titled "${videoTitle}". Based on what you observe, generate a **visually cinematic and high-impact thumbnail prompt** for the Flask Schnail model.
+Browse YouTube and search for the video titled "${videoTitle}". Generate a **visually cinematic and high-impact thumbnail prompt** suitable for rendering using the Flask Schnail thumbnail generator.
 
 Apply the following visual logic **only when the topic demands it**:
 
@@ -44,24 +44,27 @@ Apply the following visual logic **only when the topic demands it**:
 - **Environment** → Trees, recycling icons, pollution.
 
 📵 The generated image **must not contain any visible text** inside the thumbnail itself.
+📵 The generated image **must not contain video preview player design inside the thumbnail itself.**
 
 ✍️ The second line must be a **JavaScript object with the text overlay config**.
 Apply these typography principles:
 
-- The **text style must be bold, high contrast, and easy to read**, even on mobile.
-- Use **bold sans-serif fonts** (like "Anton", "Bebas Neue", "Oswald", or "Poppins") for high clickability.
-- the text color should be clearly readable based on the background on the textconfig 
-- Add **text shadow** for contrast and readability:
-  \`shadowColor: "#000"\`, \`shadowBlur: 10\`, \`shadowOffset: { x: 2, y: 2 }\`, \`shadowOpacity: 0.6\`
-- Use high-contrast text colors (white or bright tones if background is dark, or vice versa).
-- If the video title is in **Bangla**, use  **"Noto Sans Bengali"** in the \`fontFamily\`.
+- Use fonts that are **bold, sans-serif, all-uppercase, and extremely easy to read on small screens**.
+- Strongly prefer these fonts: **Anton**, **Bebas Neue**, **Impact**, **Oswald**, **Poppins**, **League Spartan**, **Montserrat ExtraBold**.
+- **Avoid script, handwritten, cursive, or serif fonts.**
+- If the video title is in **Bangla**, use **"Noto Sans Bengali"** for \`fontFamily\`.
+- Add a strong **text shadow** to improve readability:
+  \`shadowColor: "#000"\`, \`shadowBlur: 10\`, \`shadowOffset: { x: 2, y: 2 }\`, \`shadowOpacity: 0.6 \`
+- Use **high contrast text colors**: white or bright if background is dark, black or bold if background is bright.
+- Ensure **capital letters** for maximum impact.
+- Apply **letterSpacing** of at least 1 for clarity.
 - Use **multiline support and word wrapping** only if:
-  - The text length exceeds 20 characters, or
-  - The text's x position is 100 or greater.
+  - The text exceeds 20 characters, or
+  - The x-position of the text is 100 or greater.
 - Set the following properties if wrapping:
-  \`width\`, \`lineHeight\`
+  \`width\`, \`lineHeight\`, and use \`\\n\` for manual line breaks when needed.
 
-- Konva.js supports **line breaks** and **text wrapping** using \`width\`, \`lineHeight\`, and \`\\n\` for manual breaks.
+Konva.js supports **line breaks** and **text wrapping** using \`width\`, \`lineHeight\`, and \`\\n\`.
 
 If browsing is not possible, use your best judgment to create the most clickable, scannable, and attention-grabbing thumbnail prompt possible.
 
@@ -74,11 +77,11 @@ If browsing is not possible, use your best judgment to create the most clickable
 
 A dramatic YouTube thumbnail showing a developer typing furiously with a dark background and glowing terminal, inspired by cyberpunk visuals and high-intensity lighting.||
 {
-  text: "The\\nDev Life",
+  text: "THE\\nDEV LIFE",
   x: 150,
   y: 200,
   fill: "#ffffff",
-  fontSize: 42,  // should not be more then 60
+  fontSize: 42,
   fontStyle: "bold",
   shadowColor: "#000",
   shadowBlur: 12,
@@ -87,7 +90,8 @@ A dramatic YouTube thumbnail showing a developer typing furiously with a dark ba
   fontFamily: "Anton",
   letterSpacing: 1,
   lineHeight: 1.4,
-  width: 300
+  width: 300,
+  align: "center"
 }
 
 🚫 Do not include any explanation or formatting. Just return exactly 2 lines: the prompt, then the config, separated by “||”.

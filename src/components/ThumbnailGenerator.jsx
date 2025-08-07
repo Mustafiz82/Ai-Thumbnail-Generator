@@ -4,6 +4,16 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import Together from "together-ai";
 import CanvasWithText from "./CanvasWithText";
 
+// const textConfig2 = {
+//   text: "LET ME DOWN SLOWLY",
+//   fontSize: 35,
+//   fontFamily: "Arial Black", // Or try: "Montserrat", "Bebas Neue", "Impact"
+//   fontStyle: "bold",
+//   fill: "#ffffff",           // White text
+//   lineHeight: 1.3,
+//   letterSpacing: 1.5,
+// };
+
 const ThumbnailGenerator = () => {
     const inputRef = useRef(null);
     const [imageUrl, setImageUrl] = useState("");
@@ -60,10 +70,12 @@ const ThumbnailGenerator = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    model: "openrouter/horizon-beta",
+                    model: "google/gemini-2.0-flash-lite-001",
                     messages: [{ role: "user", content: geminiPrompt }],
                 }),
             });
+
+            console.log(res.data);
 
             if (!res.ok) throw new Error(`Error: ${res.status} ${res.statusText}`);
 
@@ -107,6 +119,7 @@ const ThumbnailGenerator = () => {
                         clearAllTimeouts();
 
                         setImageUrl(response.data[0].url);
+                        console.log(response.data[0].url);
                         setTextConfig(parsedTextConfig);
 
                         // Show "Generating image..." text for 3 seconds before final
@@ -226,18 +239,15 @@ const ThumbnailGenerator = () => {
 
 
 
-                    <p className="mt-3 text-xs text-gray-400 italic select-none">
-                        To save the thumbnail: 
-                        <strong>Right-click on the image → Choose "Save image as..."</strong>
-                    </p>
 
                     {imageUrl && (
                         <button
                             onClick={() => setShowModal(true)}
-                            className="mt-4 px-4 py-2 text-sm bg-gray-700 text-white rounded-md border border-gray-600 hover:bg-gray-600 transition"
+                            className="mt-2  py-1.5 text-xs font-semibold text-blue-400  rounded  hover:text-white transition"
                         >
-                            📝 How to Edit Text
+                            🛈 Learn how to Edit & Save
                         </button>
+
                     )}
 
                 </div>
@@ -245,23 +255,34 @@ const ThumbnailGenerator = () => {
 
             {showModal && (
                 <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4">
-                    <div className="bg-gray-800 border border-gray-600 rounded-lg max-w-md w-full p-6 relative text-gray-200">
+                    <div className="bg-gray-800 border border-gray-600 rounded-lg max-w-xl w-full p-6 relative text-gray-200">
                         <button
                             onClick={() => setShowModal(false)}
                             className="absolute top-3 right-3 text-gray-400 hover:text-gray-100 text-xl"
                         >
                             &times;
                         </button>
-                        <h2 className="text-lg font-semibold text-blue-400 mb-4">📝 How to Edit Text</h2>
-                        <ul className="list-disc list-inside space-y-2 text-sm">
+                        <h2 className="text-lg font-semibold text-blue-400 mb-4"> How to Edit & Save</h2>
+
+                        <h3 className="text-sm font-semibold text-gray-300 mb-2"> Editing the Text:</h3>
+                        <ul className="list-disc list-inside space-y-2 text-sm mb-4">
                             <li><strong>Click the "Edit" button</strong> to enable editing mode.</li>
-                            <li><strong>Drag</strong> the text to reposition it on the thumbnail.</li>
-                            <li><strong>Double-click</strong> the text to turn it into an input field.</li>
-                            <li>Click the <strong>"Done"</strong> button to save and exit edit mode.</li>
+                            <li><strong>Drag</strong> the text to reposition it.</li>
+                            <li><strong>Use the blue box</strong> to resize the text.</li>
+                            <li><strong>Double-click</strong> the text to open inline text input.</li>
+                            <li><strong>Use the controls</strong> at the top-left to change alignment or background opacity.</li>
+                            <li><strong>Click "Done"</strong> when finished editing.</li>
+                        </ul>
+                        <hr />
+                        <h3 className="text-sm mt-4 font-semibold text-gray-300 mb-2"> Saving the Thumbnail:</h3>
+                        <ul className="list-disc list-inside space-y-2 text-sm">
+                            <li><strong>Right-click</strong> on the final image.</li>
+                            <li>Select <strong>"Save image as..."</strong> to download the thumbnail.</li>
                         </ul>
                     </div>
                 </div>
             )}
+
 
         </div>
     );
